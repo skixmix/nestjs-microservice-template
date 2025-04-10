@@ -1,4 +1,4 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Inject } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClassTransformerMapper } from '../../utils/mapper/class-transformer-mapper';
 import { HealthCheckResponseDTO, IHealthCheckResponseDTO } from '../dtos/health-check-result.dto';
@@ -12,7 +12,11 @@ export class HealthCheckController {
         private readonly _healthCheckService: HealthCheckService,
     ) {}
 
-    @ApiResponse({ status: 200, type: HealthCheckResponseDTO, description: 'The microservice is up and running' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        type: HealthCheckResponseDTO,
+        description: 'The microservice is up and running',
+    })
     @Get()
     public async healthCheck(): Promise<IHealthCheckResponseDTO> {
         const healthStatus = await this._healthCheckService.getHealthStatus();

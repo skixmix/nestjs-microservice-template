@@ -36,7 +36,7 @@ async function bootstrap() {
             url: process.env.MQTT_URL,
         },
     });
-    // await app.startAllMicroservices();
+    await app.startAllMicroservices();
 
     await app.listen(selectedPort, selectedHost);
 }

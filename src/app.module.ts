@@ -14,7 +14,7 @@ const databaseConnectionModule = TypeOrmModule.forRoot({
 });
 
 @Module({
-    imports: [HealthCheckModule],
+    imports: [databaseConnectionModule, HealthCheckModule],
     controllers: [],
     providers: [],
 })
