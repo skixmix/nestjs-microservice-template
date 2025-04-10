@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthCheckModule } from './health-check/health-check.module';
 
@@ -14,7 +15,7 @@ const databaseConnectionModule = TypeOrmModule.forRoot({
 });
 
 @Module({
-    imports: [databaseConnectionModule, HealthCheckModule],
+    imports: [databaseConnectionModule, ConfigModule.forRoot(), HealthCheckModule],
     controllers: [],
     providers: [],
 })
