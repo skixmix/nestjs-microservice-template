@@ -36,7 +36,7 @@ This will bootstrap everything: the app, PostgreSQL, and MQTT broker.
 ```bash
 nvm use    # Uses the Node version in .nvmrc
 npm install
-npm run prepare  # Sets up Husky hooks
+npm run prepare:husky  # Sets up Husky hooks
 
 # Run the app
 npm run start
