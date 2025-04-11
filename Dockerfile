@@ -1,5 +1,7 @@
+FROM node:22-alpine AS base
+
 # 1) Build
-FROM node:22-alpine as builder
+FROM base AS builder
 
 WORKDIR /app
 COPY package*.json ./
@@ -8,7 +10,7 @@ COPY . .
 RUN npm run build
 
 # 2) Run
-FROM node:22-alpine
+FROM base
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY package*.json ./
