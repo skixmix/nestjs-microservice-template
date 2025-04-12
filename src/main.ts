@@ -1,4 +1,4 @@
-import { ConsoleLogger, NestApplicationOptions } from '@nestjs/common';
+import { ConsoleLogger, NestApplicationOptions, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
@@ -29,6 +29,14 @@ async function bootstrap() {
     const swaggerConfiguration = new DocumentBuilder().setTitle(SWAGGER_TITLE).setVersion(SWAGGER_VERSION).build();
     const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfiguration);
     SwaggerModule.setup('api-docs', app, swaggerDocument);
+
+    app.useGlobalPipes(
+        new ValidationPipe({
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            transform: true,
+        }),
+    );
 
     app.connectMicroservice<MicroserviceOptions>({
         transport: Transport.MQTT,
